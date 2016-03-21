@@ -45,8 +45,8 @@
             
             <div role="main" class="ui-content">
                 <div class="vert-center">
-                    <p><a class="ui-btn ui-shadow" href="#page-list">List</a></p>
-                    <p><a class="ui-btn ui-shadow" href="#">Trade</a></p>
+                    <p><a class="ui-btn ui-shadow" href="#page-list" data-transition="slide">List</a></p>
+                    <p><a class="ui-btn ui-shadow" href="#" data-transition="swipe">Trade</a></p>
                 </div>
             </div>
 
@@ -63,7 +63,7 @@
         
         <div data-role="page" id="page-list">
             <div data-role="header" data-position="fixed">
-                <a class="ui-btn ui-shadow ui-icon-arrow-l ui-btn-icon-left" href="#page-main">Back</a>
+                <a class="ui-btn ui-shadow ui-icon-arrow-l ui-btn-icon-left" href="#page-main" data-rel="back">Back</a>
                 <h1>Page 2</h1>
             </div>
             
@@ -71,6 +71,8 @@
                 <div id="champlist"></div>
             </div>
         </div>
+        
+        <div class="modal"><!-- Place at bottom of page --></div>
         
         
         <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
