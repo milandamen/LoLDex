@@ -30,6 +30,24 @@
         <link rel="stylesheet" type="text/css" href="css/phonegap.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Hello World</title>
+        <script type="text/javascript">
+            var amountSteps = 0;
+  
+            document.addEventListener("deviceready", onDeviceReady, false);
+ 
+            function onDeviceReady() {
+                shake.startWatch(onShake);
+                var str = 'Steps: ' + amountSteps;
+                $('div.result').html(str);
+            }
+        
+            var onShake = function () {
+                // Fired when a shake is detected
+                amountSteps++;
+                var str = "Steps: " + amountSteps;
+                $('div.result').html(str); 
+            };
+        </script>
     </head>
     <body>
 <!--
@@ -44,9 +62,12 @@
             </div>
             
             <div role="main" class="ui-content">
+                
+                <div class='result'> </div>
+                
                 <div class="vert-center">
-                    <p><a class="ui-btn ui-shadow" href="#page-list">List</a></p>
-                    <p><a class="ui-btn ui-shadow" href="#">Trade</a></p>
+                    <p><a class="ui-btn ui-shadow" href="#page-list" data-transition="slide">List</a></p>
+                    <p><a class="ui-btn ui-shadow" href="#" data-transition="swipe">Trade</a></p>
                 </div>
             </div>
 
@@ -63,9 +84,9 @@
         
         <div data-role="page" id="page-list">
             <div data-role="header" data-position="fixed">
-                <a class="ui-btn ui-shadow ui-icon-arrow-l ui-btn-icon-left" href="#page-main">Back</a>
                 <!-- <a class="backButton ui-btn" data-transition="slide" data-rel="back">Back</a> -->
                 <!-- <a class="backButton ui-btn" href="page-main" data-transition="slide" data-rel="back">Back</a> -->
+                <a class="ui-btn ui-shadow ui-icon-arrow-l ui-btn-icon-left" href="#page-main" data-rel="back">Back</a>
                 <h1>Page 2</h1>
             </div>
             
@@ -74,16 +95,20 @@
             </div>
         </div>
         
+        <div class="modal"><!-- Place at bottom of page --></div>
+        
         
         <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         
         <script type="text/javascript" src="js/repo.js"></script>
+        <script type="text/javascript" src="js/shake.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         
         <script type="text/javascript">
             app.initialize();
         </script>
+        
         
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
     </body>
