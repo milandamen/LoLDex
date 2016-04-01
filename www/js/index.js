@@ -35,6 +35,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        repo.getChampions(app.parseChampions);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -63,9 +64,9 @@ var app = {
      * Binding custom events to page elements
      */
     bindCustomEvents: function() {
-        $('#page-list').on('pageshow', function(event) {
-            repo.getChampions(app.parseChampions);
-        });
+        // $('#page-list').on('pageshow', function(event) {
+        //     repo.getChampions(app.parseChampions);
+        // });
     },
     
     parseChampions: function(data) {
@@ -79,7 +80,7 @@ var app = {
     },
     
     loadAltImage: function(el) {
-        el.src = 'http://ddragon.leagueoflegends.com/cdn/6.5.1/img/champion/' + el.alt + '.png';
+        el.src = 'http://ddragon.leagueoflegends.com/cdn/6.6.1/img/champion/' + el.alt + '.png';
     }
     
     
@@ -91,3 +92,35 @@ $(document).on({
     ajaxStart: function() { $body.addClass("loading");    },
      ajaxStop: function() { $body.removeClass("loading"); }    
 });
+
+
+//SHAKE DAT *ehhum*
+var amountSteps = 0;
+// var unlockAmountShakes = randomIntFromInterval(3, 8); //This seems good amount
+var unlockAmountShakes = randomIntFromInterval(1, 3); //easier for testing
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+    shake.startWatch(onShake);
+    var str = 'Shakes: ' + amountSteps;
+    $('div.result').html(str);
+}
+
+var onShake = function () {
+    // Fired when a shake is detected
+    amountSteps++;
+    
+    if(amountSteps >= unlockAmountShakes) {
+        alert('ohi');
+        amountSteps = 0;
+    }
+     
+    var str = "Shake amount for testing: " + amountSteps;
+    $('div.result').html(str);
+};
+
+function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
