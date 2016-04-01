@@ -97,7 +97,7 @@ $(document).on({
 //SHAKE DAT *ehhum*
 var amountSteps = 0;
 // var unlockAmountShakes = randomIntFromInterval(3, 8); //This seems good amount
-var unlockAmountShakes = randomIntFromInterval(1, 3); //easier for testing
+var unlockAmountShakes = 2; //easier for testing
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -114,6 +114,8 @@ var onShake = function () {
     if(amountSteps >= unlockAmountShakes) {
         alert('ohi');
         amountSteps = 0;
+        
+        //unlock champion and save it on the api database stuff
     }
      
     var str = "Shake amount for testing: " + amountSteps;
