@@ -1,0 +1,7 @@
+{
+    "api_key": "",
+    "api_host": "https://na.api.pvp.net",
+    "db_name": "loldex",
+    "db_host": "localhost",
+    "db_port": 27017
+}
