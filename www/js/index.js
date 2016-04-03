@@ -112,7 +112,7 @@ var onShake = function () {
     amountSteps++;
     
     if(amountSteps >= unlockAmountShakes) {
-        alert(repo.getArrayChampions(returnRandomChamp));
+        repo.getArrayChampions(returnRandomChamp);
         amountSteps = 0;
         
         //unlock champion and save it on the api database stuff
@@ -145,5 +145,6 @@ function returnRandomChamp(champions) {
     var randomChamp = championsArray[Math.floor(Math.random()*championsArray.length)];
     // var randomChamp = "RAWR";
     console.log(randomChamp);
-    return randomChamp;
+    
+    alert(randomChamp);
 }
