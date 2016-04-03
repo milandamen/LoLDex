@@ -14,6 +14,16 @@ var repo = {
                 repo.championsListCached = true;
             });
         }
+    },
+    
+    getArrayChampions: function(callback) {
+        //only use when getChampions is already used
+        if(repo.championsListCached) {
+            callback(repo.champions);
+        }
+        else {
+            console.log("error, repo.champions is not initialized and cached yet");
+        }
     }
     
 }

@@ -96,8 +96,8 @@ $(document).on({
 
 //SHAKE DAT *ehhum*
 var amountSteps = 0;
-// var unlockAmountShakes = randomIntFromInterval(3, 8); //This seems good amount
-var unlockAmountShakes = 2; //easier for testing
+// var unlockAmountShakes = randomIntFromInterval(3, 8); //This seems good amounta
+var unlockAmountShakes = 1; //easier for testing
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -112,7 +112,7 @@ var onShake = function () {
     amountSteps++;
     
     if(amountSteps >= unlockAmountShakes) {
-        alert('ohi');
+        alert(repo.getArrayChampions(returnRandomChamp));
         amountSteps = 0;
         
         //unlock champion and save it on the api database stuff
@@ -125,4 +125,25 @@ var onShake = function () {
 function randomIntFromInterval(min,max)
 {
     return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+function returnRandomChamp(champions) {
+    // var championsArray = champions;
+    // var championsArray = ["Ahri", "Annie", "Tibbers"];
+    var championsArray = [];
+    
+    // return championsArray.toString();
+    
+    
+    
+    var championsList = Object.keys(champions).sort();
+    championsList.forEach(function(champion) {
+        championsArray.push(champion);
+    });
+    // console.log(championsArray);
+    
+    var randomChamp = championsArray[Math.floor(Math.random()*championsArray.length)];
+    // var randomChamp = "RAWR";
+    console.log(randomChamp);
+    return randomChamp;
 }
