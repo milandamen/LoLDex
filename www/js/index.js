@@ -70,7 +70,7 @@ var app = {
     },
     
     parseChampions: function(data) {
-        console.log(data);
+        // console.log(data);
         
         var champList = $('#champlist');
         var champions = Object.keys(data).sort();
@@ -86,17 +86,18 @@ var app = {
     
 };
 
+//modal loading
 $body = $("body");
 
 $(document).on({
-    ajaxStart: function() { $body.addClass("loading");    },
-     ajaxStop: function() { $body.removeClass("loading"); }    
+    ajaxStart: function() { $body.addClass("loading"); },
+    ajaxStop: function() { $body.removeClass("loading"); }    
 });
 
 
-//SHAKE DAT *ehhum*
+//shake + unlock champion code
 var amountSteps = 0;
-// var unlockAmountShakes = randomIntFromInterval(3, 8); //This seems good amounta
+// var unlockAmountShakes = randomIntFromInterval(3, 8); //This seems good amount
 var unlockAmountShakes = 1; //easier for testing
 
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -144,5 +145,6 @@ function returnRandomChamp(champions) {
     // $.mobile.changePage('#dialog', 'pop', true, true);
     
     $.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
-    $("#unlocked").html(randomChamp);
+    $("#champIcon").html('<img src="img/champions/' + randomChamp + '.png" alt="' + randomChamp + '" onerror="app.loadAltImage(this)" />');
+    $("#champUnlocked").html('<p>'+randomChamp+'</p>');
 }
