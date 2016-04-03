@@ -128,23 +128,16 @@ function randomIntFromInterval(min,max)
 }
 
 function returnRandomChamp(champions) {
-    // var championsArray = champions;
-    // var championsArray = ["Ahri", "Annie", "Tibbers"];
     var championsArray = [];
-    
-    // return championsArray.toString();
-    
-    
     
     var championsList = Object.keys(champions).sort();
     championsList.forEach(function(champion) {
         championsArray.push(champion);
     });
-    // console.log(championsArray);
     
     var randomChamp = championsArray[Math.floor(Math.random()*championsArray.length)];
     // var randomChamp = "RAWR";
-    console.log(randomChamp);
+    // console.log(randomChamp);
     
     alert(randomChamp);
 }
