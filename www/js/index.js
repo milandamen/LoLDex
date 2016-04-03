@@ -139,5 +139,10 @@ function returnRandomChamp(champions) {
     // var randomChamp = "RAWR";
     // console.log(randomChamp);
     
-    alert(randomChamp);
+    // alert(randomChamp);
+    
+    // $.mobile.changePage('#dialog', 'pop', true, true);
+    
+    $.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+    $("#unlocked").html(randomChamp);
 }
