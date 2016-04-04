@@ -8,10 +8,12 @@
 
 #champlist {
     width: 100%;
+    line-height:10px
 }
 
 #champlist img {
     width: 25%;
+    /*vertical-align:text-bottom*/
 }
 
 /* Start by setting display:none to make this hidden.

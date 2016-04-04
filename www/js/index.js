@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var championName;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -27,7 +29,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        app.bindCustomEvents();
+        // app.bindCustomEvents();
     },
     // deviceready Event Handler
     //
@@ -64,9 +66,29 @@ var app = {
      * Binding custom events to page elements
      */
     bindCustomEvents: function() {
-        // $('#page-list').on('pageshow', function(event) {
-        //     repo.getChampions(app.parseChampions);
-        // });
+        $(document).on("pagebeforeshow", function() {
+            if(championName) {
+                console.log("inside");
+                
+                $('.champName').html(championName);
+                // $('#champImage').html("test");
+                $('#champImage').html('<img src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+championName+'_0.jpg"/>');
+                // $("#champImage").html('<img src="img/champions/' + championName + '.png" alt="' + championName + '" onerror="app.loadAltImage(this)" />');
+                
+                //championName -> NULL
+                championName = null;
+            }
+        });
+        
+        $('.championIcon').click(function(event) {
+            //  console.log( "You clicked a champicon!" );
+            
+            //  alert($(this).attr('id'));
+            //  console.log($(this).attr('id'));
+             
+             championName = $(this).attr('id');
+             console.log(championName);
+        });
     },
     
     parseChampions: function(data) {
@@ -75,8 +97,10 @@ var app = {
         var champList = $('#champlist');
         var champions = Object.keys(data).sort();
         champions.forEach(function(champion) {
-            champList.append('<img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" />');
+            // champList.append('<img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" />');
+            champList.append('<a href="champion.html" id="'+champion+'" class="championIcon" data-transition="slide"><img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" /></a>');
         });
+        app.bindCustomEvents();
     },
     
     loadAltImage: function(el) {
@@ -85,15 +109,6 @@ var app = {
     
     
 };
-
-//modal loading
-$body = $("body");
-
-$(document).on({
-    ajaxStart: function() { $body.addClass("loading"); },
-    ajaxStop: function() { $body.removeClass("loading"); }    
-});
-
 
 //shake + unlock champion code
 var amountSteps = 0;
@@ -148,3 +163,12 @@ function returnRandomChamp(champions) {
     $("#champIcon").html('<img src="img/champions/' + randomChamp + '.png" alt="' + randomChamp + '" onerror="app.loadAltImage(this)" />');
     $("#champUnlocked").html('<p>'+randomChamp+'</p>');
 }
+
+
+//show loading modal when busy with an Ajax request, such as loading Champions
+$body = $("body");
+
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading"); },
+    ajaxStop: function() { $body.removeClass("loading"); }    
+});
