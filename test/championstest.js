@@ -40,7 +40,7 @@ describe('Testing champions routes', function(){
         it('should return all champions', function(done){
             makeRequest('/web/champions', 200, function(err, res){
                 if(err){ return done(err); }
-                done();
+                done(); 
             });
         });
     });
