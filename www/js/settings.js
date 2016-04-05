@@ -18,10 +18,3 @@ $('#checkbox-1a').click(function() {
         app.show(false);
     }
 });
-
-
-
-//reset
-// console.log('remove');
-// localStorage.removeItem('unlockedChampions'); //once, testing purposes
-// alert(localStorage.getItem('unlockedChampions'));
