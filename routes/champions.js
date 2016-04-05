@@ -34,5 +34,21 @@ router.route('/champions/:id')
             res.status(errorObject.status_code).json(errorObject);
         });
     });
+    
+router.route('/web/champions')
+    .get(function(req, res, next) {
+        response = res;
+        
+        ext_api.get('champions', null, function(result) {
+            var champions = [];
+            Object.keys(result.data).forEach(function(val) {
+                champions.push(result.data[val]);
+            });
+            
+            res.render('champions', {champions: champions});
+        }, function(errorObject) {
+            res.status(errorObject.status_code).json(errorObject);
+        })
+    });
 
 module.exports = router;    

@@ -3,8 +3,13 @@ var expect = require('chai').expect;
 var should = require('chai').should();
 
 var app = require('express')();
-var calendar = require('../routes/champions');
-app.use('/', calendar);
+var exphbs = require('express-handlebars');
+var route = require('../routes/champions');
+
+app.engine('hbs', exphbs({extname:'hbs', defaultLayout:'main.hbs'}));
+app.set('view engine', 'hbs');
+
+app.use('/', route);
 
 function makeRequest(route, statusCode, done){
 	request(app)
@@ -17,19 +22,29 @@ function makeRequest(route, statusCode, done){
 		});
 };
 
-describe('Testing champions route', function(){
-	describe('without params', function(){
-		it('should return all champions', function(done){
-			makeRequest('/champions', 200, function(err, res){
-				if(err){ return done(err); }
+describe('Testing champions routes', function(){
+    describe('without params', function(){
+        it('should return all champions', function(done){
+            makeRequest('/champions', 200, function(err, res){
+                if(err){ return done(err); }
 
                 expect(res.body).to.have.property('data');
                 expect(res.body.data).to.have.property('Zyra');
-                
-				done();
-			});
-		});
-	});
+
+                done();
+            });
+        });
+    });
+    
+    describe('web version', function(){
+        it('should return all champions', function(done){
+            makeRequest('/web/champions', 200, function(err, res){
+                if(err){ return done(err); }
+                done();
+            });
+        });
+    });
+    
 });
 
 describe('Testing champion route', function() {
