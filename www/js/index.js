@@ -75,11 +75,11 @@ var app = {
     },
     
     parseChampions: function(data) {
-        console.log('champions: '+data);
+        // console.log('champions: '+data);
         
         var champList = $('#champlist');
         var champions = Object.keys(data).sort();
-        console.log('keys: '+champions);
+        // console.log('keys: '+champions);
         champions.forEach(function(champion) {
             // champList.append('<img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" />');
             champList.append('<a href="champion.html" id="'+champion+'" class="championIcon" data-transition="slide"><img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" /></a>');
@@ -145,13 +145,12 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
     shake.startWatch(onShake);
-    var str = 'Shake amount: ' + amountSteps;
+    var str = 'Shakes: ' + amountSteps;
     $('div.result').html(str);
 }
 
 var onShake = function () {
     // Fired when a shake is detected
-    navigator.vibrate(500);
     amountSteps++;
     
     if(amountSteps >= unlockAmountShakes) {
@@ -162,7 +161,7 @@ var onShake = function () {
         initShakeVariables();
     }
      
-    var str = "Shake amount: " + amountSteps;
+    var str = "Shakes: " + amountSteps;
     $('div.result').html(str);
     
 };
@@ -235,6 +234,8 @@ function returnRandomChamp(champions) {
     else {
         alert('No more champions to unlock.');
     }
+    
+    navigator.vibrate(500); //500ms vibrate
 }
 
 
