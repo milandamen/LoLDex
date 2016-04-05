@@ -71,9 +71,7 @@ var app = {
                 console.log("inside");
                 
                 $('.champName').html(championName);
-                // $('#champImage').html("test");
-                $('#champImage').html('<img src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+championName+'_0.jpg"/>');
-                // $("#champImage").html('<img src="img/champions/' + championName + '.png" alt="' + championName + '" onerror="app.loadAltImage(this)" />');
+                $('#champImage').html('<img src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+championName+'_0.jpg" alt="'+championName+'"/>');
                 
                 //championName -> NULL
                 championName = null;
@@ -81,15 +79,12 @@ var app = {
         });
         
         $('.championIcon').click(function(event) {
-            //  console.log( "You clicked a champicon!" );
-            
-            //  alert($(this).attr('id'));
-            //  console.log($(this).attr('id'));
-             
              championName = $(this).attr('id');
              console.log(championName);
         });
     },
+    
+    
     
     parseChampions: function(data) {
         // console.log(data);
@@ -152,12 +147,6 @@ function returnRandomChamp(champions) {
     });
     
     var randomChamp = championsArray[Math.floor(Math.random()*championsArray.length)];
-    // var randomChamp = "RAWR";
-    // console.log(randomChamp);
-    
-    // alert(randomChamp);
-    
-    // $.mobile.changePage('#dialog', 'pop', true, true);
     
     $.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
     $("#champIcon").html('<img src="img/champions/' + randomChamp + '.png" alt="' + randomChamp + '" onerror="app.loadAltImage(this)" />');
