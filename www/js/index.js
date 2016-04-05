@@ -130,16 +130,15 @@ var app = {
 var amountSteps;
 var unlockAmountShakes; //This seems good amount
 initShakeVariables();
-// var unlockAmountShakes = 1; //easier for testing
 
 function initShakeVariables() {
     amountSteps = 0;
     
     //production
-    // unlockAmountShakes = randomIntFromInterval(3, 8); 
+    unlockAmountShakes = randomIntFromInterval(3, 8); 
     
     //testing
-    unlockAmountShakes = 1; 
+    // unlockAmountShakes = 1; 
 }
 
 document.addEventListener("deviceready", onDeviceReady, false);
