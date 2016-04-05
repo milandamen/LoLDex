@@ -6,14 +6,9 @@
     background-color: #FFF;
 }
 
-#champlist, #unlockedlist {
-    width: 100%;
-    line-height:10px
-}
-
-#champlist img, #unlockedlist img {
-    width: 25%;
-    /*vertical-align:text-bottom*/
+img.center {
+    display: block;
+    margin: 0 auto;
 }
 
 .center {
@@ -51,4 +46,25 @@ body.loading {
    modal element will be visible */
 body.loading .modal {
     display: block;
+}
+
+@media all and (orientation:portrait) {
+	#champlist, #unlockedlist {
+        width: 100%;
+        line-height:10px
+    }
+
+    #champlist img, #unlockedlist img {
+        width: 25%;
+    }
+}
+@media all and (orientation:landscape) {
+    #champlist, #unlockedlist {
+        width: 100%;
+        line-height:10px
+    }
+
+    #champlist img, #unlockedlist img {
+        width: 12.5%;
+    }
 }

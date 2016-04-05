@@ -9,6 +9,7 @@
             <div data-role="header" data-position="fixed">
                 <a class="ui-btn ui-shadow ui-icon-arrow-l ui-btn-icon-left" href="index" data-rel="back">Back</a>
                 <h1>My Champions</h1>
+                <a href="delete.html" id="delete" data-icon="delete" data-prefetch="true" data-transition="slide" class="ui-btn-right">Reset</a>
             </div>
             
             <div role="main" class="ui-content">
@@ -18,8 +19,15 @@
             <div data-role="footer" data-position="fixed">
                 <p class="center">Copyright - Mark-Jan de Jong & Milan Damen</p>
             </div>
+            
+            
         </div>
         
         <div class="modal"><!-- Place at bottom of page --></div>
+        
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
     </body>
 </html>

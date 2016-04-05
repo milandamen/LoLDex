@@ -2,7 +2,7 @@
 function resetUnlockedChampions() {
     console.log('remove unlocked champions');
     localStorage.removeItem('unlockedChampions'); //once, testing purposes
-    alert('removed unlocked champions: '+localStorage.getItem('unlockedChampions'));
+    alert('Removed unlocked champions.');
 }
 // resetUnlockedChampions(); //comment / uncomment
 
@@ -70,44 +70,25 @@ var app = {
         
         $('.championIcon').click(function(event) {
              championName = $(this).attr('id');
-            //  console.log(championName);
         });
     },
     
     parseChampions: function(data) {
-        // console.log('champions: '+data);
-        
         var champList = $('#champlist');
         var champions = Object.keys(data).sort();
-        // console.log('keys: '+champions);
         champions.forEach(function(champion) {
-            // champList.append('<img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" />');
             champList.append('<a href="champion.html" id="'+champion+'" class="championIcon" data-transition="slide"><img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" /></a>');
         });
         app.bindCustomEvents();
     },
     
     parseUnlockedChampions: function(array) {
-        // console.log('unlocked: '+array);
-        
         var unlockedList = $('#unlockedlist');
         unlockedList.html(''); //reset / empty
         
-        // var champions = Object.keys(data.sort);
-        // console.log('keys: '+champions);
-        
-        // console.log('starting loop');
         for(var i = 0; i < array.length; i++) {
-            
-            // console.log('i: '+i);
-            // console.log('champ: '+array[i]);
             unlockedList.append('<a href="champion.html" id="'+array[i]+'" class="championIcon" data-transition="slide"><img src="img/champions/' + array[i] + '.png" alt="' + array[i] + '" onerror="app.loadAltImage(this)" /></a>');
         }
-        // console.log('end loop');
-        
-        // champions.forEach(function(champion) {
-        //     unlockedList.append('<a href="champion.html" id="'+champion+'" class="championIcon" data-transition="slide"><img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" /></a>');
-        // });
         
         app.bindCustomEvents();
     },
@@ -183,16 +164,12 @@ function getFilteredChampionList(allChampions) {
 
 function getUnlockedChampions() { //
     var championsUnlockJSON = localStorage.getItem('unlockedChampions');
-    // alert(championsUnlockJSON);
-    // console.log('championsUnlockJSON: '+championsUnlockJSON);
     var championsUnlocked;
      
     if(!championsUnlockJSON) { //aka NULL
         championsUnlocked = [];
-        // console.log('init first time'); //remove
     }
     else {
-        // console.log('inside else');
         championsUnlocked = JSON.parse(championsUnlockJSON); 
     }
     
@@ -208,15 +185,10 @@ function returnRandomChamp(champions) {
         championsArray.push(champion);
     });
     
-    // console.log("getting filteredChampionsList");
     var filteredChampionsList = getFilteredChampionList(championsList);
-    // console.log('filtered champion lists: '+filteredChampionsList);
     
-    // console.log('going to get random champ');
     var randomChamp = filteredChampionsList[Math.floor(Math.random()*filteredChampionsList.length)];
     if(randomChamp) {
-        // console.log('random champ: '+randomChamp);
-        
         $.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
         $("#champIcon").html('<img src="img/champions/' + randomChamp + '.png" alt="' + randomChamp + '" onerror="app.loadAltImage(this)" />');
         $("#champUnlocked").html('<p>'+randomChamp+'</p>');
@@ -226,7 +198,6 @@ function returnRandomChamp(champions) {
         
         championsUnlocked.push(randomChamp);
         localStorage.setItem('unlockedChampions', JSON.stringify(championsUnlocked));
-        // console.log('storage: '+localStorage.getItem('unlockedChampions'));
         
         //importante, update the champions list
         app.parseUnlockedChampions(championsUnlocked.sort());

@@ -5,18 +5,20 @@
         <title>LoLDex</title>
     </head>
     <body>
-        <div data-role="page" id="page-list" data-dom-cache="true">
+        <div data-role="page" data-dialog="true" data-overlay-theme="b" data-theme="b">
             <div data-role="header" data-position="fixed">
-                <a class="ui-btn ui-shadow ui-icon-arrow-l ui-btn-icon-left" href="index" data-rel="back">Back</a>
-                <h1>Champions</h1>
+                <h1>Reset?</h1>
             </div>
             
             <div role="main" class="ui-content">
-                <div id="champlist"></div>
+                <h1 class="sure-1">Do you want to reset and delete your champions?</h1>
+                <a href="#" class="sure-do" data-role="button" data-theme="b" data-rel="back">Yes</a>
+                <a href="#" data-role="button" data-theme="c" data-rel="back">No</a>
             </div>
             
             <div data-role="footer" data-position="fixed">
                 <p class="center">Copyright - Mark-Jan de Jong & Milan Damen</p>
+                <script type="text/javascript" src="js/delete.js"></script>
             </div>
         </div>
         
@@ -26,5 +28,6 @@
             app.initialize();
         </script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+        
     </body>
 </html>
