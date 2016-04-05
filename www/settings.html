@@ -9,7 +9,7 @@
         <title>LoLDex</title>
     </head>
     <body>
-        <div data-role="page" id="page-list">
+        <div data-role="page" id="page-list" data-dom-cache="true">
             <div data-role="header" data-position="fixed">
                 <a class="ui-btn ui-shadow ui-icon-arrow-l ui-btn-icon-left" href="index" data-rel="back">Back</a>
                 <h1 class="champName">Settings</h1>
@@ -27,6 +27,13 @@
                 <script type="text/javascript" src="js/settings.js"></script>
             </div>
         </div>
+        
+        <div class="modal"><!-- Place at bottom of page --></div>
+        
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
         
     </body>
 </html>

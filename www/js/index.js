@@ -68,8 +68,6 @@ var app = {
     bindCustomEvents: function() {
         $(document).on("pagebeforeshow", function() {
             if(championName) {
-                console.log("inside");
-                
                 $('.champName').html(championName);
                 $('#champImage').html('<img src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+championName+'_0.jpg" alt="'+championName+'"/>');
                 
@@ -80,7 +78,7 @@ var app = {
         
         $('.championIcon').click(function(event) {
              championName = $(this).attr('id');
-             console.log(championName);
+            //  console.log(championName);
         });
     },
     
@@ -100,21 +98,28 @@ var app = {
     
     loadAltImage: function(el) {
         el.src = 'http://ddragon.leagueoflegends.com/cdn/6.6.1/img/champion/' + el.alt + '.png';
+    },
+    
+    show: function(show) {
+        if(show === true) {
+            $('div.result').show();
+        }
+        else {
+            $('div.result').hide();
+        }
     }
-    
-    
 };
 
 //shake + unlock champion code
 var amountSteps = 0;
-// var unlockAmountShakes = randomIntFromInterval(3, 8); //This seems good amount
-var unlockAmountShakes = 1; //easier for testing
+var unlockAmountShakes = randomIntFromInterval(3, 8); //This seems good amount
+// var unlockAmountShakes = 1; //easier for testing
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
     shake.startWatch(onShake);
-    var str = 'Shakes: ' + amountSteps;
+    var str = 'Shake amount: ' + amountSteps;
     $('div.result').html(str);
 }
 
@@ -129,7 +134,7 @@ var onShake = function () {
         //unlock champion and save it on the api database stuff
     }
      
-    var str = "Shake amount for testing: " + amountSteps;
+    var str = "Shake amount: " + amountSteps;
     $('div.result').html(str);
 };
 
