@@ -3,9 +3,9 @@
     <description>Shake dat phone and unlock a Poke...Champion!</description>
     <author href="http://phonegap.com" email="mjong12@student.avans.nl">Mark-Jan de Jong and Milan Damen</author>
     <content src="index.html"/>
-    <gap:plugin name="org.apache.cordova.device-motion"/>
-    <gap:plugin name="org.apache.cordova.vibration"/>
-    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <plugin name="cordova-plugin-whitelist" spec="1.2.1" />
+    <plugin name="org.apache.cordova.device-motion" source="pgb" spec="0.2.11" />
+    <plugin name="org.apache.cordova.vibration" source="pgb" spec="0.3.13" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

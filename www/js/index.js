@@ -151,6 +151,7 @@ function onDeviceReady() {
 
 var onShake = function () {
     // Fired when a shake is detected
+    navigator.vibrate(500);
     amountSteps++;
     
     if(amountSteps >= unlockAmountShakes) {
@@ -163,6 +164,7 @@ var onShake = function () {
      
     var str = "Shake amount: " + amountSteps;
     $('div.result').html(str);
+    
 };
 
 function randomIntFromInterval(min,max)
