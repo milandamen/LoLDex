@@ -1,14 +1,24 @@
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    username: {type: String, required: true},
-    roles: [{type: String}]
+    local: {
+        email: {type: String, required: true},
+        password: {type: String, required: true},
+    }
 })
 
-//methods , niet method!
-userSchema.methods.isInRole = function(role){
-   return this.roles.indexOf(role) > -1
-}
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 
-mongoose.model('User', userSchema);
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.local.password);
+};
+
+//userSchema.methods.isInRole = function(role){
+   //return this.roles.indexOf(role) > -1
+//};
+
+module.exports = mongoose.model('User', userSchema);

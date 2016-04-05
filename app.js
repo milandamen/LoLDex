@@ -9,7 +9,10 @@ var bodyParser = require('body-parser');
 // Config
 var config = require('./modules/config');
 
-// Authentication (TODO)
+// Authentication
+var passport = require('passport');
+var flash = require('connect-flash');
+var session = require('express-session');
 //var auth = require('./modules/auth');
 
 // Connection
@@ -46,10 +49,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Passport
+require('./config/passport')(passport);
+app.use(session({ secret: 'milandamenmarkjandejong13' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 // Routes
-//var users = require('./routes/users');
-//app.use('/users', users);
+require('./routes/users')(app, passport);
 app.use('/', require('./routes/champions'));
 
 

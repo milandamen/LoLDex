@@ -15,7 +15,6 @@ router.route('/')
 
 router.route('/champions')
     .get(function(req, res, next) {
-        console.log('asdasd');
         response = res;
         
         ext_api.get('champions', null, function(result) {
