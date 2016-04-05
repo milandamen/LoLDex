@@ -1,4 +1,9 @@
-var configfile = require('../config.json');
+var configfile = {};
+
+try {
+    configfile = require('../config.json');
+}
+catch (error) {}
 
 module.exports = {
     api_key: process.env.api_key || configfile.api_key || 'b725dd4e-3669-4805-8e86-217f53183a2c',
