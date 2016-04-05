@@ -88,20 +88,22 @@ var app = {
     },
     
     parseUnlockedChampions: function(array) {
-        console.log('unlocked: '+array);
+        // console.log('unlocked: '+array);
         
         var unlockedList = $('#unlockedlist');
+        unlockedList.html(''); //reset / empty
+        
         // var champions = Object.keys(data.sort);
         // console.log('keys: '+champions);
         
-        console.log('starting loop');
+        // console.log('starting loop');
         for(var i = 0; i < array.length; i++) {
             
-            console.log('i: '+i);
-            console.log('champ: '+array[i]);
+            // console.log('i: '+i);
+            // console.log('champ: '+array[i]);
             unlockedList.append('<a href="champion.html" id="'+array[i]+'" class="championIcon" data-transition="slide"><img src="img/champions/' + array[i] + '.png" alt="' + array[i] + '" onerror="app.loadAltImage(this)" /></a>');
         }
-        console.log('end loop');
+        // console.log('end loop');
         
         // champions.forEach(function(champion) {
         //     unlockedList.append('<a href="champion.html" id="'+champion+'" class="championIcon" data-transition="slide"><img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" /></a>');
@@ -187,10 +189,10 @@ function getUnlockedChampions() { //
      
     if(!championsUnlockJSON) { //aka NULL
         championsUnlocked = [];
-        console.log('init first time'); //remove
+        // console.log('init first time'); //remove
     }
     else {
-        console.log('inside else');
+        // console.log('inside else');
         championsUnlocked = JSON.parse(championsUnlockJSON); 
     }
     
@@ -206,24 +208,32 @@ function returnRandomChamp(champions) {
         championsArray.push(champion);
     });
     
-    console.log("getting filteredChampionsList");
+    // console.log("getting filteredChampionsList");
     var filteredChampionsList = getFilteredChampionList(championsList);
-    console.log('filtered champion lists: '+filteredChampionsList);
+    // console.log('filtered champion lists: '+filteredChampionsList);
     
-    console.log('going to get random champ');
+    // console.log('going to get random champ');
     var randomChamp = filteredChampionsList[Math.floor(Math.random()*filteredChampionsList.length)];
-    console.log('random champ: '+randomChamp);
-    
-    $.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
-    $("#champIcon").html('<img src="img/champions/' + randomChamp + '.png" alt="' + randomChamp + '" onerror="app.loadAltImage(this)" />');
-    $("#champUnlocked").html('<p>'+randomChamp+'</p>');
-    
-    
-    var championsUnlocked = getUnlockedChampions();
-    
-    championsUnlocked.push(randomChamp);
-    localStorage.setItem('unlockedChampions', JSON.stringify(championsUnlocked));
-    console.log('storage: '+localStorage.getItem('unlockedChampions'));
+    if(randomChamp) {
+        // console.log('random champ: '+randomChamp);
+        
+        $.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+        $("#champIcon").html('<img src="img/champions/' + randomChamp + '.png" alt="' + randomChamp + '" onerror="app.loadAltImage(this)" />');
+        $("#champUnlocked").html('<p>'+randomChamp+'</p>');
+        
+        
+        var championsUnlocked = getUnlockedChampions();
+        
+        championsUnlocked.push(randomChamp);
+        localStorage.setItem('unlockedChampions', JSON.stringify(championsUnlocked));
+        // console.log('storage: '+localStorage.getItem('unlockedChampions'));
+        
+        //importante, update the champions list
+        app.parseUnlockedChampions(championsUnlocked.sort());
+    }
+    else {
+        alert('No more champions to unlock.');
+    }
 }
 
 
