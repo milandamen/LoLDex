@@ -1,21 +1,12 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+//reset champions unlocked
+function resetUnlockedChampions() {
+    console.log('remove unlocked champions');
+    localStorage.removeItem('unlockedChampions'); //once, testing purposes
+    alert('removed unlocked champions: '+localStorage.getItem('unlockedChampions'));
+}
+// resetUnlockedChampions(); //comment / uncomment
+
+//variables
 var championName;
 
 var app = {
@@ -82,8 +73,6 @@ var app = {
         });
     },
     
-    
-    
     parseChampions: function(data) {
         // console.log(data);
         
@@ -111,9 +100,20 @@ var app = {
 };
 
 //shake + unlock champion code
-var amountSteps = 0;
-var unlockAmountShakes = randomIntFromInterval(3, 8); //This seems good amount
+var amountSteps;
+var unlockAmountShakes; //This seems good amount
+initShakeVariables();
 // var unlockAmountShakes = 1; //easier for testing
+
+function initShakeVariables() {
+    amountSteps = 0;
+    
+    //production
+    // unlockAmountShakes = randomIntFromInterval(3, 8); 
+    
+    //testing
+    unlockAmountShakes = 1; 
+}
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -128,10 +128,11 @@ var onShake = function () {
     amountSteps++;
     
     if(amountSteps >= unlockAmountShakes) {
+        // for (i = 0; i < 10; i++) { 
+        //     repo.getArrayChampions(returnRandomChamp);
+        // }
         repo.getArrayChampions(returnRandomChamp);
-        amountSteps = 0;
-        
-        //unlock champion and save it on the api database stuff
+        initShakeVariables();
     }
      
     var str = "Shake amount: " + amountSteps;
@@ -143,6 +144,34 @@ function randomIntFromInterval(min,max)
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
+function getFilteredChampionList(allChampions) {
+    var championsUnlocked = getUnlockedChampions();
+    var filteredChampionsList = allChampions.filter(function(val) {
+       return championsUnlocked.indexOf(val) == -1; 
+    });
+    
+    
+    return filteredChampionsList;
+}
+
+function getUnlockedChampions() { //
+    var championsUnlockJSON = localStorage.getItem('unlockedChampions');
+    // alert(championsUnlockJSON);
+    // console.log('championsUnlockJSON: '+championsUnlockJSON);
+    var championsUnlocked;
+     
+    if(!championsUnlockJSON) { //aka NULL
+        championsUnlocked = [];
+        console.log('init first time'); //remove
+    }
+    else {
+        console.log('inside else');
+        championsUnlocked = JSON.parse(championsUnlockJSON); 
+    }
+    
+    return championsUnlocked;
+}
+
 function returnRandomChamp(champions) {
     var championsArray = [];
     
@@ -151,12 +180,46 @@ function returnRandomChamp(champions) {
         championsArray.push(champion);
     });
     
-    var randomChamp = championsArray[Math.floor(Math.random()*championsArray.length)];
+    console.log("getting filteredChampionsList");
+    var filteredChampionsList = getFilteredChampionList(championsList);
+    console.log('filtered champion lists: '+filteredChampionsList);
+    
+    console.log('going to get random champ');
+    var randomChamp = filteredChampionsList[Math.floor(Math.random()*filteredChampionsList.length)];
+    console.log('random champ: '+randomChamp);
     
     $.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
     $("#champIcon").html('<img src="img/champions/' + randomChamp + '.png" alt="' + randomChamp + '" onerror="app.loadAltImage(this)" />');
     $("#champUnlocked").html('<p>'+randomChamp+'</p>');
+    
+    
+    var championsUnlocked = getUnlockedChampions();
+    
+    //unlock champion and save it on the api database stuff
+    // var championsUnlockJSON = localStorage.getItem('unlockedChampions');
+    // alert(championsUnlockJSON);
+    // console.log(championsUnlockJSON);
+    // var championsUnlocked;
+     
+    // if(!championsUnlockJSON) { //aka NULL
+    //     championsUnlocked = [];
+    //     alert('init first time'); //remove
+    // }
+    // else {
+    //     alert('inside');
+    //     championsUnlocked = JSON.parse(championsUnlockJSON); 
+    //     console.log(championsUnlocked);
+    //     alert('doitz =(');
+    // }
+    
+    championsUnlocked.push(randomChamp);
+    localStorage.setItem('unlockedChampions', JSON.stringify(championsUnlocked));
+    // alert(championsUnlocked.toString());
+    // console.log('unlock: '+championsUnlocked);
+    console.log('storage: '+localStorage.getItem('unlockedChampions'));
+    // alert('finish: '+championsUnlocked);
 }
+
 
 
 //show loading modal when busy with an Ajax request, such as loading Champions
