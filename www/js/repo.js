@@ -24,7 +24,11 @@ var repo = {
         else {
             console.log("error, repo.champions is not initialized and cached yet");
         }
-    }
+    },
     
+    getUnlockedArrayChampions: function(callback) {
+        console.log('starting callback');
+        callback(JSON.parse(localStorage.getItem('unlockedChampions')));
+    }
 }
 

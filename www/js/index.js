@@ -29,6 +29,7 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         repo.getChampions(app.parseChampions);
+        app.parseUnlockedChampions(getUnlockedChampions());
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -74,14 +75,38 @@ var app = {
     },
     
     parseChampions: function(data) {
-        // console.log(data);
+        console.log('champions: '+data);
         
         var champList = $('#champlist');
         var champions = Object.keys(data).sort();
+        console.log('keys: '+champions);
         champions.forEach(function(champion) {
             // champList.append('<img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" />');
             champList.append('<a href="champion.html" id="'+champion+'" class="championIcon" data-transition="slide"><img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" /></a>');
         });
+        app.bindCustomEvents();
+    },
+    
+    parseUnlockedChampions: function(array) {
+        console.log('unlocked: '+array);
+        
+        var unlockedList = $('#unlockedlist');
+        // var champions = Object.keys(data.sort);
+        // console.log('keys: '+champions);
+        
+        console.log('starting loop');
+        for(var i = 0; i < array.length; i++) {
+            
+            console.log('i: '+i);
+            console.log('champ: '+array[i]);
+            unlockedList.append('<a href="champion.html" id="'+array[i]+'" class="championIcon" data-transition="slide"><img src="img/champions/' + array[i] + '.png" alt="' + array[i] + '" onerror="app.loadAltImage(this)" /></a>');
+        }
+        console.log('end loop');
+        
+        // champions.forEach(function(champion) {
+        //     unlockedList.append('<a href="champion.html" id="'+champion+'" class="championIcon" data-transition="slide"><img src="img/champions/' + champion + '.png" alt="' + champion + '" onerror="app.loadAltImage(this)" /></a>');
+        // });
+        
         app.bindCustomEvents();
     },
     
@@ -169,6 +194,7 @@ function getUnlockedChampions() { //
         championsUnlocked = JSON.parse(championsUnlockJSON); 
     }
     
+    championsUnlocked = championsUnlocked.sort();
     return championsUnlocked;
 }
 
@@ -195,29 +221,9 @@ function returnRandomChamp(champions) {
     
     var championsUnlocked = getUnlockedChampions();
     
-    //unlock champion and save it on the api database stuff
-    // var championsUnlockJSON = localStorage.getItem('unlockedChampions');
-    // alert(championsUnlockJSON);
-    // console.log(championsUnlockJSON);
-    // var championsUnlocked;
-     
-    // if(!championsUnlockJSON) { //aka NULL
-    //     championsUnlocked = [];
-    //     alert('init first time'); //remove
-    // }
-    // else {
-    //     alert('inside');
-    //     championsUnlocked = JSON.parse(championsUnlockJSON); 
-    //     console.log(championsUnlocked);
-    //     alert('doitz =(');
-    // }
-    
     championsUnlocked.push(randomChamp);
     localStorage.setItem('unlockedChampions', JSON.stringify(championsUnlocked));
-    // alert(championsUnlocked.toString());
-    // console.log('unlock: '+championsUnlocked);
     console.log('storage: '+localStorage.getItem('unlockedChampions'));
-    // alert('finish: '+championsUnlocked);
 }
 
 
