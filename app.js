@@ -20,7 +20,7 @@ var mongoose = require('mongoose');
 mongoose.connect(config.db_host + ':' + config.db_port + '/' + config.db_name);
 
 // Models and repos
-require('./model/user'); //Registreet alleen het schema bij mongoose
+require('./model/user'); //Registreert alleen het schema bij mongoose
 
 
 var app = express();
@@ -57,7 +57,7 @@ app.use(passport.session());
 app.use(flash());
 
 // Routes
-require('./routes/users')(app, passport);
+app.use('/', require('./routes/users')(passport))
 app.use('/', require('./routes/champions'));
 
 

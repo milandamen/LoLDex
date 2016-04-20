@@ -4,7 +4,7 @@ var config = require('../modules/config');
 module.exports = {
     routes: {
         champions: '/api/lol/static-data/euw/v1.2/champion?',
-        champion: '/api/lol/static-data/euw/v1.2/champion/:id?champData=all&'
+        champion: '/api/lol/static-data/euw/v1.2/champion/:id?champData=info,lore&'
     },
     get: function(api_route, params, success, error) {
         var url = config.api_host + this.routes[api_route] + 'api_key=' + config.api_key;
@@ -22,7 +22,7 @@ module.exports = {
                 success(body);                                      // Let the success callback handle the response
             } else {
                 error({                                             // Let the error callback handle the error
-                    status_code: 500,
+                    status_code: response.statusCode,
                     error: err
                 });
             }

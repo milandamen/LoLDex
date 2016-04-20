@@ -11,44 +11,44 @@ var User = require('mongoose').model('User');
         //});
     //})
 
-module.exports = function(app, passport) {
-    app.get('/', function(req, res) {
-        res.render('index');
-    });
-    
-    app.get('/login', function(req, res) {
-        res.render('login', { message: req.flash('loginMessage') } );
-    })
-    
-    app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/login', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }));
-    
-    app.get('/signup', function(req, res) {
-        res.render('signup', { message: req.flash('signupMessage') });
-    });
-    
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }));
-    
-    app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile', {
-            user : req.user // get the user out of session and pass to template
+module.exports = function(passport) {
+    router.route('/')
+        .get(function(req, res) {
+            res.render('index');
         });
-    });
     
-    app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
+    router.route('/login')
+        .get(function(req, res) {
+            res.render('login', { message: req.flash('loginMessage') } );
+        })
+        .post(passport.authenticate('local-login', {
+            successRedirect : '/profile', // redirect to the secure profile section
+            failureRedirect : '/login',   // redirect back to the signup page if there is an error
+            failureFlash : true           // allow flash messages
+        }));
     
+    router.route('/signup')
+        .get(function(req, res) {
+            res.render('signup', { message: req.flash('signupMessage') });
+        })
+        .post(passport.authenticate('local-signup', {
+            successRedirect : '/profile', // redirect to the secure profile section
+            failureRedirect : '/signup', // redirect back to the signup page if there is an error
+            failureFlash : true // allow flash messages
+        }));
     
+    router.route('/profile')
+        .get(isLoggedIn, function(req, res) {
+            res.render('profile', {
+                user : req.user // get the user out of session and pass to template
+            });
+        })
     
+    router.route('/logout')
+        .get(function(req, res) {
+            req.logout();
+            res.redirect('/');
+        })
     
     
     function isLoggedIn(req, res, next) {
@@ -59,5 +59,7 @@ module.exports = function(app, passport) {
         // if they aren't redirect them to the home page
         res.redirect('/');
     }
+    
+    return router;
 }
 
